@@ -1,0 +1,81 @@
+/* CSS Document */
+
+html, body {
+	
+	margin: 0 auto;
+	font-family: sans-serif;
+	font-size: 18px;
+    font-weight: bold;
+	color: #008000 ;
+    background-image: url(burgs.jpg);
+    cursor: -webkit-grab; 
+    cursor: grab;
+    
+}
+	
+h1 {
+	margin: 2px;
+    font-family: 'Chango', cursive;
+}
+	
+button {
+	font-size: 12px;
+	font-weight: bold;
+	padding: 8px; 
+    cursor: -webkit-grab; 
+    cursor: grab;}
+	
+div#content {
+    width: 700px;
+    margin:0 auto;
+	padding: 20px;
+	background-color: #d59667  ; 
+    cursor: -webkit-grab; 
+    cursor: grab;}
+	
+div#controls {
+	text-align: right; }
+	
+div#controls span {
+	font-weight: bold;
+	color: #990000; }
+	
+div#controls button {
+	margin-left: 20px; }
+	
+
+	
+div#gamespace {
+	margin: 20px;
+	padding: 10px;
+	height: 350px;
+	background-color: #FFF;
+	border: 2px dotted #FF0000;
+    position: relative;
+    cursor: -webkit-grab; 
+    cursor: grab;
+}
+
+img{
+    width: 120px;
+    
+}
+
+div#timerid {
+    font-weight: bold;
+    color: #990000 ;
+    display:flex;
+    margin-top: 20px;
+}
+#score{
+    width: 350px;
+    text-align:left;
+}
+#timera{
+    width:350px;
+    text-align:right;
+}
+div#gamespace img { 
+    position: absolute; 
+}
+

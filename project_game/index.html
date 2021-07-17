@@ -1,0 +1,191 @@
+<!-- 
+		Name: Andruleigha Turner
+		Date: 4/21/2021
+		Class: CSCI2447, Javascript Fundamentals
+		Project 5
+ -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>Smack-A-Burger (CSCI2447)</title>
+    
+    <!-- CSS styles: This is for me to worry about; not you. -->
+	<link href="css/game.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Chango&display=swap" rel="stylesheet">
+      
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="jQueryUI/jquery-ui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        
+        var firstName;
+        var score = 0;
+        var seconds = 31;
+        var t; //assign as a global
+        var b;
+        var xPos;
+        var yPos;
+        
+       // ready function that welcomes the user , that also houses the Startbutton
+        $(document).ready(function(){
+            
+            firstName = prompt("Please enter First Name: ");
+            
+            $("p:first").prepend('<p>Are You ready to get Started <b>' + firstName + '?</b></p>');
+            
+            
+            $("#start_button").click(function(){
+                beginGame();
+                $("#start_button").off();
+                
+                
+            }); //end start button 
+            
+            
+                
+            $('button#start_button').css({
+                "width": "100px", 
+                "height": "50px", 
+                "color": "#FFFFFF", 
+                "background-color": "#008000", 
+                "font-size": "18px" })
+        // Used Fold effect to make images disappear 
+             $("#gamespace").on("click", "img", function(){
+                increment(); 
+                $(this).toggle("fold");
+                $("#start_button").off("click");
+ 
+                
+                
+                 
+            
+        });
+        });//end ready
+        
+        //Timer function which decrements the users remaining sections 
+        function decrement(){
+             
+            if (seconds > 0){
+                seconds = seconds - 1;
+             t = setTimeout("decrement()", 1000);
+            $("#start_button").off("click");
+            } else {
+               $('#timera').stop();
+               endGame();
+            }
+           
+            $('#timera').html(seconds + " seconds left")
+        }//end Decrement
+        
+     
+        //Get random number functions
+        //generates number between 1 and 600
+        function getRandNumX(){
+            return Math.floor((Math.random()*600) + 1);
+            
+        } //end x
+        //generates number between 1 and 300
+        function getRandNumY(){
+            return Math.floor((Math.random()*300) + 1);
+            
+        } //end y 
+        
+        //increment score function 
+        //upon click on img, score increments by one and be shown using html(). img will then be removed.
+        function increment () {
+            score += 1;
+           $("#score").html(score +" Burgers");
+       } //end increment
+        
+        //Begin Game function that activates all other game componets
+            function beginGame() {
+                $('.timerText').show();
+                decrement();
+                addImage();
+                updateGamespaceSize();
+                updateScore();
+                
+            };// end begin game
+        //
+        function randomizedImg (min,max){
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        };
+        //function that adds images to the gamespace at random 
+        //Burgers are added to the #gamespace using append() 
+        function addImage() {
+            
+        console.log(xPos,yPos); 
+            
+        xPos = getRandNumX(); 
+        yPos = getRandNumY();
+            let newImg = $('<img src = "img/Hamburger.png" style=" left: '+ xPos + 'px; top: '+ yPos +'px;" />');
+            
+            $("#gamespace").append(newImg);
+            setTimeout(newImg.remove.bind(newImg), randomizedImg(1000, 2000));
+            t = setTimeout("addImage()", randomizedImg(0,2000));
+            };//end addImage
+        //update score fucntion 
+        
+        function updateScore() {
+            score += 1;
+            $("#score").text(score + " Burgers");
+        };//end updateScore
+        //update gamespace
+        function updateGameSpace() {
+            var gamespaceElement = $("#gamespace");
+            var width = getRandNumX();
+            var height = getRandNumY();
+        };// end updateGameSpace
+        
+        //The two clearTimeOut() stop addMole() and keepTime() from repeating. When timer hits zero, the off()
+        //stops the clickabilty of img.-->
+       function endGame() {
+           clearTimeout(b);
+           $("#gamespace").off("click","img");
+           restartGame();
+           clearTimeout(t);
+       }
+        //locaton.reload refreshes the entire page if user clicks OK to the alert box. If not, 'else' executes
+       function restartGame() {
+           var restart = confirm("Your Time is up! Your Score was: " + score + " would you like to play again?");
+           if (restart == true) {
+               location.reload();
+           }
+           else {
+               alert("Have a great day!");
+           }
+       }
+    </script>
+  </head>
+  <body>
+
+	<div id="content">
+
+		<h1>Smack-A-Burger</h1>
+		
+		<p> After clicking "start", you will have 30 seconds to click
+		as many images as you can. The images appear randomly so be ready! </p>
+		
+		<div id="controls">
+			<button type="button" id="start_button">Start!</button>
+		</div>
+		
+        <div id="timerid" class="timer">
+            <span id="score">0 Burgers</span>
+            <span id="timera">30 seconds left</span>
+
+        </div>
+		<div id="gamespace">
+			
+		</div>
+		
+	</div>
+  </body>
+</html>
